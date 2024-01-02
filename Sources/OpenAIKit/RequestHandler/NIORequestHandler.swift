@@ -52,6 +52,21 @@ struct NIORequestHandler: RequestHandler {
         decoder.keyDecodingStrategy = request.keyDecodingStrategy
         decoder.dateDecodingStrategy = request.dateDecodingStrategy
 
+        // Debug
+        if AnyDecodableHelper.environmentVariable != nil {
+            print("==================================================================")
+            print("Parsing response for path: \(request.path)")
+            print("------------------------------------------------------------------")
+            do {
+                let anyDecodable = try decoder.decode(AnyDecodableDictionary.self, from: data)
+                AnyDecodableHelper.printKeys(for: anyDecodable)
+            } catch {
+                print("failed to debug decode -> \(error)")
+            }
+            print("==================================================================\n")
+        }
+
+        // Data
         do {
             return try decoder.decode(T.self, from: data)
         } catch {

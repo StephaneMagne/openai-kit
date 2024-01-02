@@ -33,11 +33,11 @@ Create a `OpenAIKit.Client` by passing a configuration.
 ~~~~swift
 
 var apiKey: String {
-    ProcessInfo.processInfo.environment["OPENAI_API_KEY"]!
+    ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
 }
 
 var organization: String {
-    ProcessInfo.processInfo.environment["OPENAI_ORGANIZATION"]!
+    ProcessInfo.processInfo.environment["OPENAI_ORGANIZATION"]
 }
 
 ...
