@@ -2,10 +2,12 @@ import Foundation
 
 public struct ImageURL: Decodable {
     public let url: String
+    public let revisedPrompt: String?
 }
 
 public struct ImageData: Decodable {
     public let b64Json: Data
+    public let revisedPrompt: String?
 }
 
 public enum ImageSize: String, Codable {
