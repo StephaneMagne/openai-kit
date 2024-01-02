@@ -16,14 +16,17 @@ public struct ImageProvider {
 
      Creates an image given a prompt.
      */
-    public func create(
+    public func createURL(
+        model: ImageModel = .default,
         prompt: String,
         n: Int = 1,
-        size: Image.Size = .tenTwentyFour,
+        size: ImageSize = .tenTwentyFour,
         user: String? = nil
-    ) async throws -> ImageResponse {
+    ) async throws -> ImageURLResponse {
         
         let request = try CreateImageRequest(
+            model: model,
+            responseFormat: .url,
             prompt: prompt,
             n: n,
             size: size,
@@ -32,7 +35,27 @@ public struct ImageProvider {
         
         return try await requestHandler.perform(request: request)
     }
-    
+
+    public func createData(
+        model: ImageModel = .default,
+        prompt: String,
+        n: Int = 1,
+        size: ImageSize = .tenTwentyFour,
+        user: String? = nil
+    ) async throws -> ImageDataResponse {
+        
+        let request = try CreateImageRequest(
+            model: model,
+            responseFormat: .data,
+            prompt: prompt,
+            n: n,
+            size: size,
+            user: user
+        )
+        
+        return try await requestHandler.perform(request: request)
+    }
+
     /**
      Create image edit
      POST
@@ -46,9 +69,9 @@ public struct ImageProvider {
         mask: Data? = nil,
         prompt: String,
         n: Int = 1,
-        size: Image.Size = .tenTwentyFour,
+        size: ImageSize = .tenTwentyFour,
         user: String? = nil
-    ) async throws -> ImageResponse {
+    ) async throws -> ImageURLResponse {
         
         let request = try CreateImageEditRequest(
             image: image,
@@ -73,9 +96,9 @@ public struct ImageProvider {
     public func createVariation(
         image: Data,
         n: Int = 1,
-        size: Image.Size = .tenTwentyFour,
+        size: ImageSize = .tenTwentyFour,
         user: String? = nil
-    ) async throws -> ImageResponse {
+    ) async throws -> ImageURLResponse {
         
         let request = try CreateImageVariationRequest(
             image: image,

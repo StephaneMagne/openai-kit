@@ -1,8 +1,11 @@
 import Foundation
 
-public struct ImageResponse {
+public struct ImageURLResponse: Decodable {
     public let created: Date
-    public let data: [Image]
+    public let data: [ImageURL]
 }
 
-extension ImageResponse: Decodable {}
+public struct ImageDataResponse: Decodable {
+    public let created: Date
+    public let data: [ImageData]
+}

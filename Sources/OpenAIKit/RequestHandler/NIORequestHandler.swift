@@ -41,17 +41,21 @@ struct NIORequestHandler: RequestHandler {
         ).get()
         
         
-        guard let byteBuffer = response.body else {
+        guard var byteBuffer = response.body else {
             throw RequestHandlerError.responseBodyMissing
         }
         
+        var data = Data()
+        let bytes = byteBuffer.readBytes(length: byteBuffer.readableBytes)
+        bytes.flatMap { data.append(contentsOf: $0) }
+
         decoder.keyDecodingStrategy = request.keyDecodingStrategy
         decoder.dateDecodingStrategy = request.dateDecodingStrategy
 
         do {
-            return try decoder.decode(T.self, from: byteBuffer)
+            return try decoder.decode(T.self, from: data)
         } catch {
-            throw try decoder.decode(APIErrorResponse.self, from: byteBuffer)
+            throw try decoder.decode(APIErrorResponse.self, from: data)
         }
     }
     

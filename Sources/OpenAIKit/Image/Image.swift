@@ -1,17 +1,17 @@
 import Foundation
 
-public struct Image {
+public struct ImageURL: Decodable {
     public let url: String
 }
 
-extension Image: Decodable {}
-
-extension Image {
-    public enum Size: String {
-        case twoFiftySix = "256x256"
-        case fiveTwelve = "512x512"
-        case tenTwentyFour = "1024x1024"
-    }
+public struct ImageData: Decodable {
+    public let b64Json: Data
 }
 
-extension Image.Size: Codable {}
+public enum ImageSize: String, Codable {
+    case twoFiftySix = "256x256"
+    case fiveTwelve = "512x512"
+    case tenTwentyFour = "1024x1024"
+    case seventeenNinetyTwoPortrait = "1024x1792"
+    case seventeenNinetyTwoLandscape = "1792x1024"
+}

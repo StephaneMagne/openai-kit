@@ -17,7 +17,7 @@ struct CreateImageVariationRequest: Request {
     init(
         image: Data,
         n: Int,
-        size: Image.Size,
+        size: ImageSize,
         user: String?
     ) throws {
         

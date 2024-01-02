@@ -105,7 +105,7 @@ final class ClientTests: XCTestCase {
     }
     
     func test_createImage() async throws {
-        let image = try await client.images.create(prompt: "Tiger Woods eating soup")
+        let image = try await client.images.createURL(prompt: "Tiger Woods eating soup")
         
         print(image)
     }

@@ -19,7 +19,7 @@ struct CreateImageEditRequest: Request {
         mask: Data?,
         prompt: String,
         n: Int,
-        size: Image.Size,
+        size: ImageSize,
         user: String?
     ) throws {
         
